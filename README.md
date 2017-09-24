@@ -1,2 +1,2 @@
-#Rest Security
-Projeto para testes de tecnologias de segurança para endpoints rest.
+# Rest Security
+Projeto para exemplos de tecnologias/técnicas de segurança para endpoints REST. 
