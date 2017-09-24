@@ -1,17 +1,11 @@
 package com.miguelmf.study.rest.security.endpoints;
 
-
-import com.miguelmf.study.rest.security.model.Tarefa;
+import com.miguelmf.study.rest.security.auth.Autorizador;
 import com.miguelmf.study.rest.security.model.TarefaRepositorio;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.HashMap;
-import java.util.Map;
 
 @Path("tarefas")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -19,13 +13,16 @@ import java.util.Map;
 public class TarefasResource {
 
     private final TarefaRepositorio repositorio;
+    private final Autorizador autorizador = new Autorizador();
 
     public TarefasResource() {
         this.repositorio = new TarefaRepositorio();
     }
 
     @GET
-    public Response listar() {
+    public Response listar(@HeaderParam("Authorization") String token) {
+        System.out.println(token);
+        autorizador.verifica(token);
         return Response.ok(repositorio.listar()).build();
     }
 
